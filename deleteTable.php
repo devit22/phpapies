@@ -1,5 +1,5 @@
-<?php
 
+<?php
 include("connection.php");
 
 
@@ -9,24 +9,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['topic_name'])) { 
  
     $topicName = $_POST['topic_name'];
+      $qry = "DROP TABLE $topicName";
 
-      
-
-      $qry = "CREATE TABLE ".$topicName."(
-        quetionText VARCHAR(110)  NOT NULL,
-        optionA VARCHAR(40)  NOT NULL,
-        optionB VARCHAR(40)  NOT NULL,
-        optionC VARCHAR(40)  NOT NULL,
-        optionD VARCHAR(40)  NOT NULL,
-        rightOption VARCHAR(40) NOT NULL
-        )";
    if (mysqli_query($conn, $qry)) {
 
 
-    $qrytwo = "INSERT INTO topic(topic) values('$topicName')";
+    $qrytwo = "DELETE FROM  topic WHERE  topic = '$topicName'";
 
     if(mysqli_query($conn,$qrytwo)){
-        $response["message"]= "Table Created Successfully";
+        $response["message"]= "Table Deleted  Successfully";
         $response["status"]= "true";
         echo  json_encode($response);
     }else{
